@@ -1,0 +1,57 @@
+[
+    {
+        "canUse": false,
+        "consumable": false,
+        "count": 1,
+        "displayName": "Doran's Blade",
+        "itemID": 1055,
+        "price": 450,
+        "rawDescription": "GeneratedTip_Item_1055_Description",
+        "rawDisplayName": "Item_1055_Name",
+        "slot": 0
+    },
+    {
+        "canUse": false,
+        "consumable": false,
+        "count": 1,
+        "displayName": "Berserker's Greaves",
+        "itemID": 3006,
+        "price": 500,
+        "rawDescription": "GeneratedTip_Item_3006_Description",
+        "rawDisplayName": "Item_3006_Name",
+        "slot": 1
+    },
+    {
+        "canUse": false,
+        "consumable": false,
+        "count": 1,
+        "displayName": "Zeal",
+        "itemID": 3086,
+        "price": 150,
+        "rawDescription": "GeneratedTip_Item_3086_Description",
+        "rawDisplayName": "Item_3086_Name",
+        "slot": 2
+    },
+    {
+        "canUse": false,
+        "consumable": false,
+        "count": 1,
+        "displayName": "Immortal Shieldbow",
+        "itemID": 6673,
+        "price": 600,
+        "rawDescription": "GeneratedTip_Item_6673_Description",
+        "rawDisplayName": "Item_6673_Name",
+        "slot": 3
+    },
+    {
+        "canUse": true,
+        "consumable": false,
+        "count": 1,
+        "displayName": "Stealth Ward",
+        "itemID": 3340,
+        "price": 0,
+        "rawDescription": "GeneratedTip_Item_3340_Description",
+        "rawDisplayName": "Item_3340_Name",
+        "slot": 6
+    }
+]

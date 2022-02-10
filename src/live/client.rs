@@ -1,7 +1,13 @@
-use crate::live::models;
 use reqwest::{Client, Method, RequestBuilder};
 
-use crate::live::config::LiveClientConfig;
+use crate::live::{
+    config::LiveClientConfig,
+    error::{LiveClientError, LiveClientResult},
+    response::ResponseInfo,
+};
+
+use crate::live::cert;
+use crate::live::models::PlayerScore;
 
 pub struct LiveClient {
     config: LiveClientConfig,
@@ -12,12 +18,69 @@ impl LiveClient {
     pub fn new(config: impl Into<LiveClientConfig>) -> Self {
         Self {
             config: config.into(),
-            client: Client::builder().build().unwrap(), //TODO riot pem
+            client: Client::builder()
+                .add_root_certificate(cert::load_certificate().unwrap())
+                .build()
+                .unwrap(), //TODO riot pem
         }
     }
 
     pub fn request(&self, method: Method, path: &str) -> RequestBuilder {
         self.client
             .request(method, format!("{}{}", self.config.base_url, path))
+    }
+
+    pub async fn execute<'a, T: serde::de::DeserializeOwned + 'a>(
+        &self,
+        request: RequestBuilder,
+    ) -> LiveClientResult<T> {
+        let rinfo = self.execute_raw(request).await?;
+        let status = rinfo.response.status();
+        let value = rinfo.response.json::<T>().await;
+        value.map_err(|e| LiveClientError::new(e, rinfo.retries, None, Some(status)))
+    }
+
+    pub async fn execute_raw(&self, request: RequestBuilder) -> LiveClientResult<ResponseInfo> {
+        let mut retries: u8 = 0;
+        loop {
+            let request_clone = request
+                .try_clone()
+                .expect("Failed to clone request.")
+                .send();
+            let response = request_clone
+                .await
+                .map_err(|e| LiveClientError::new(e, retries, None, None))?;
+
+            let status = response.status();
+            println!("{}", status);
+            if status.is_success() {
+                break Ok(ResponseInfo { response, retries });
+            } else if retries > self.config.retries {
+                let err = response.error_for_status_ref().err().unwrap();
+                break Err(LiveClientError::new(err, retries, None, None));
+            }
+            retries += 1;
+        }
+    }
+
+    pub async fn get_player_score(&self, player_name: &str) -> LiveClientResult<PlayerScore> {
+        let request = self.request(
+            Method::GET,
+            &format!("/liveclientdata/playerscores?summonerName={}", player_name),
+        );
+        let response = self.execute::<PlayerScore>(request).await;
+        response
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn get_player_score() {
+        let lcu = LiveClient::new(LiveClientConfig::new());
+        let score: PlayerScore = lcu.get_player_score("antisoup").await.unwrap();
+        println!("{}", score.creep_score);
     }
 }

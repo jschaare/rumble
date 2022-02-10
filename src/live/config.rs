@@ -4,7 +4,7 @@ pub struct LiveClientConfig {
 }
 
 impl LiveClientConfig {
-    pub const DEFAULT_BASE_URL: &'static str = "https://127.0.0.1:2999/{}";
+    pub const DEFAULT_BASE_URL: &'static str = "https://127.0.0.1:2999";
     pub const DEFAULT_RETRIES: u8 = 3;
 
     pub fn new() -> Self {

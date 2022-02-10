@@ -20,11 +20,11 @@ pub struct PlayerItem {
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct PlayerScore {
-    assists: i32,
-    creep_score: i32,
-    deaths: i32,
-    kills: i32,
-    ward_score: i32,
+    pub assists: i32,
+    pub creep_score: i32,
+    pub deaths: i32,
+    pub kills: i32,
+    pub ward_score: i32,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

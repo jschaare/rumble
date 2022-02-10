@@ -1,7 +1,7 @@
 use reqwest::{Error, Response, StatusCode};
 use std::fmt;
 
-pub type Result<T> = std::result::Result<T, LiveClientError>;
+pub type LiveClientResult<T> = std::result::Result<T, LiveClientError>;
 
 #[derive(Debug)]
 pub struct LiveClientError {

@@ -52,7 +52,6 @@ impl LiveClient {
                 .map_err(|e| LiveClientError::new(e, retries, None, None))?;
 
             let status = response.status();
-            println!("{}", status);
             if status.is_success() {
                 break Ok(ResponseInfo { response, retries });
             } else if retries > self.config.retries {
@@ -61,26 +60,5 @@ impl LiveClient {
             }
             retries += 1;
         }
-    }
-
-    pub async fn get_player_score(&self, player_name: &str) -> LiveClientResult<PlayerScore> {
-        let request = self.request(
-            Method::GET,
-            &format!("/liveclientdata/playerscores?summonerName={}", player_name),
-        );
-        let response = self.execute::<PlayerScore>(request).await;
-        response
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[tokio::test]
-    async fn get_player_score() {
-        let lcu = LiveClient::new(LiveClientConfig::new());
-        let score: PlayerScore = lcu.get_player_score("antisoup").await.unwrap();
-        println!("{}", score.creep_score);
     }
 }

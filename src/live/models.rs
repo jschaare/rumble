@@ -6,181 +6,182 @@ use serde::{de, Deserialize, Deserializer};
 #[serde(rename_all = "camelCase")]
 pub struct PlayerItem {
     #[serde(rename = "itemID")]
-    item_id: i32,
-    can_use: bool,
-    consumable: bool,
-    count: i32,
-    display_name: String,
-    price: i32,
-    raw_description: String,
-    raw_display_name: String,
-    slot: i32,
+    pub item_id: i32,
+    pub can_use: bool,
+    pub consumable: bool,
+    pub count: i32,
+    pub display_name: String,
+    pub price: i32,
+    pub raw_description: String,
+    pub raw_display_name: String,
+    pub slot: i32,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct PlayerScore {
-    pub assists: i32,
-    pub creep_score: i32,
-    pub deaths: i32,
-    pub kills: i32,
-    pub ward_score: i32,
+    pub assists: i64,
+    pub creep_score: i64,
+    pub deaths: i64,
+    pub kills: i64,
+    pub ward_score: f64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Player {
-    champion_name: String,
-    is_bot: bool,
-    is_dead: bool,
-    items: Vec<PlayerItem>,
-    level: i32,
-    position: String,
-    raw_champion_name: String,
-    respawn_timer: f64,
-    runes: MainRunes,
-    scores: PlayerScore,
+    pub champion_name: String,
+    pub is_bot: bool,
+    pub is_dead: bool,
+    pub items: Vec<PlayerItem>,
+    pub level: i32,
+    pub position: String,
+    pub raw_champion_name: String,
+    pub respawn_timer: f64,
+    pub runes: Option<MainRunes>,
+    pub scores: PlayerScore,
     #[serde(rename = "skinID")]
-    skin_id: i64,
-    summoner_name: String,
-    summoner_spells: SummonerSpells,
-    team: String,
+    pub skin_id: i64,
+    pub summoner_name: String,
+    pub summoner_spells: SummonerSpells,
+    pub team: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ActivePlayer {
-    abilities: ActivePlayerAbilities,
-    champion_stats: ChampionStats,
-    current_gold: f64,
-    full_runes: ActivePlayerRunes,
-    level: i32,
-    summoner_name: String,
+    pub abilities: ActivePlayerAbilities,
+    pub champion_stats: ChampionStats,
+    pub current_gold: f64,
+    pub full_runes: ActivePlayerRunes,
+    pub level: i32,
+    pub summoner_name: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ChampionStats {
-    ability_haste: Option<f64>,
-    ability_power: Option<f64>,
-    armor: f64,
-    armor_penetration_flat: f64,
-    armor_penetration_percent: f64,
-    attack_damage: f64,
-    attack_range: f64,
-    attack_speed: f64,
-    bonus_armor_penetration_percent: f64,
-    bonus_magic_penetration_percent: f64,
-    cooldown_reduction: Option<f64>,
-    crit_chance: Option<f64>,
-    crit_damage: Option<f64>,
-    current_health: f64,
-    health_regen_rate: f64,
-    life_steal: Option<f64>,
-    magic_lethality: Option<f64>,
-    magic_penetration_flat: Option<f64>,
-    magic_penetration_percent: Option<f64>,
-    magic_resist: Option<f64>,
-    max_health: f64,
-    move_speed: f64,
-    physical_lethality: Option<f64>,
-    resource_max: f64,
-    resource_regen_rate: f64,
-    resource_type: String,
-    resource_value: f64,
-    spell_vamp: Option<f64>,
-    tenacity: Option<f64>,
+    pub ability_haste: Option<f64>,
+    pub ability_power: Option<f64>,
+    pub armor: f64,
+    pub armor_penetration_flat: f64,
+    pub armor_penetration_percent: f64,
+    pub attack_damage: f64,
+    pub attack_range: f64,
+    pub attack_speed: f64,
+    pub bonus_armor_penetration_percent: f64,
+    pub bonus_magic_penetration_percent: f64,
+    pub cooldown_reduction: Option<f64>,
+    pub crit_chance: Option<f64>,
+    pub crit_damage: Option<f64>,
+    pub current_health: f64,
+    pub health_regen_rate: f64,
+    pub life_steal: Option<f64>,
+    pub magic_lethality: Option<f64>,
+    pub magic_penetration_flat: Option<f64>,
+    pub magic_penetration_percent: Option<f64>,
+    pub magic_resist: Option<f64>,
+    pub max_health: f64,
+    pub move_speed: f64,
+    pub physical_lethality: Option<f64>,
+    pub resource_max: f64,
+    pub resource_regen_rate: f64,
+    pub resource_type: String,
+    pub resource_value: f64,
+    pub spell_vamp: Option<f64>,
+    pub tenacity: Option<f64>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Ability {
-    ability_level: Option<i32>,
-    display_name: String,
-    id: String,
-    raw_description: String,
-    raw_display_name: String,
+    pub ability_level: Option<i32>,
+    pub display_name: String,
+    pub id: String,
+    pub raw_description: String,
+    pub raw_display_name: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ActivePlayerAbilities {
     #[serde(flatten)]
-    abilities: HashMap<String, Ability>,
+    pub abilities: HashMap<String, Ability>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SummonerSpell {
-    display_name: String,
-    raw_description: String,
-    raw_display_name: String,
+    pub display_name: String,
+    pub raw_description: String,
+    pub raw_display_name: String,
 }
 
+// TODO why is this missing sometimes
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SummonerSpells {
-    summoner_spell_one: SummonerSpell,
-    summoner_spell_two: SummonerSpell,
+    pub summoner_spell_one: Option<SummonerSpell>,
+    pub summoner_spell_two: Option<SummonerSpell>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Rune {
-    display_name: String,
-    id: i32,
-    raw_description: String,
-    raw_display_name: String,
+    pub display_name: String,
+    pub id: i32,
+    pub raw_description: String,
+    pub raw_display_name: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct StatRune {
-    id: i32,
-    raw_description: String,
+    pub id: i32,
+    pub raw_description: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct MainRunes {
-    keystone: Rune,
-    primary_rune_tree: Rune,
-    secondary_rune_tree: Rune,
+    pub keystone: Rune,
+    pub primary_rune_tree: Rune,
+    pub secondary_rune_tree: Rune,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ActivePlayerRunes {
     #[serde(flatten)]
-    main_runes: MainRunes,
-    general_runes: Vec<Rune>,
-    stat_runes: Vec<StatRune>,
+    pub main_runes: MainRunes,
+    pub general_runes: Vec<Rune>,
+    pub stat_runes: Vec<StatRune>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct GameStats {
-    game_mode: String,
-    game_time: f64,
-    map_name: String,
-    map_number: i32,
-    map_terrain: String,
+    pub game_mode: String,
+    pub game_time: f64,
+    pub map_name: String,
+    pub map_number: i32,
+    pub map_terrain: String,
 }
 
 //TODO: Try and rework to use PascalCase?
 #[derive(Debug, Serialize, Deserialize)]
 pub struct GameEvent {
     #[serde(rename = "EventID")]
-    event_id: i32,
+    pub event_id: i32,
     #[serde(rename = "EventTime")]
-    event_time: f64,
+    pub event_time: f64,
     #[serde(flatten)]
-    event_type: GameEventType,
+    pub event_type: GameEventType,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct GameEventAll {
     #[serde(rename = "Events")]
-    events: Vec<GameEvent>,
+    pub events: Vec<GameEvent>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -190,72 +191,72 @@ pub enum GameEventType {
     MinionsSpawning,
     ChampionKill {
         #[serde(rename = "KillerName")]
-        killer_name: String,
+        pub killer_name: String,
         #[serde(rename = "VictimName")]
-        victim_name: String,
+        pub victim_name: String,
         #[serde(rename = "Assisters")]
-        assisters: Vec<String>,
+        pub assisters: Vec<String>,
     },
     FirstBrick {
         #[serde(rename = "KillerName")]
-        killer_name: String,
+        pub killer_name: String,
     },
     TurretKilled {
         #[serde(rename = "KillerName")]
-        killer_name: String,
+        pub killer_name: String,
         #[serde(rename = "TurretKilled")]
-        turret_killed: String,
+        pub turret_killed: String,
         #[serde(rename = "Assisters")]
-        assisters: Vec<String>,
+        pub assisters: Vec<String>,
     },
     InhibKilled {
         #[serde(rename = "KillerName")]
-        killer_name: String,
+        pub killer_name: String,
         #[serde(rename = "InhibKilled")]
-        inhib_killed: String,
+        pub inhib_killed: String,
         #[serde(rename = "Assisters")]
-        assisters: Vec<String>,
+        pub assisters: Vec<String>,
     },
     DragonKill {
         #[serde(rename = "KillerName")]
-        killer_name: String,
+        pub killer_name: String,
         #[serde(rename = "DragonType")]
-        dragon_type: String,
+        pub dragon_type: String,
         #[serde(deserialize_with = "bool_from_string")]
         #[serde(rename = "Stolen")]
-        stolen: bool,
+        pub stolen: bool,
         #[serde(rename = "Assisters")]
-        assisters: Vec<String>,
+        pub assisters: Vec<String>,
     },
     HeraldKill {
         #[serde(rename = "KillerName")]
-        killer_name: String,
+        pub killer_name: String,
         #[serde(deserialize_with = "bool_from_string")]
         #[serde(rename = "Stolen")]
-        stolen: bool,
+        pub stolen: bool,
         #[serde(rename = "Assisters")]
-        assisters: Vec<String>,
+        pub assisters: Vec<String>,
     },
     BaronKill {
         #[serde(rename = "KillerName")]
-        killer_name: String,
+        pub killer_name: String,
         #[serde(deserialize_with = "bool_from_string")]
         #[serde(rename = "Stolen")]
-        stolen: bool,
+        pub stolen: bool,
         #[serde(rename = "Assisters")]
-        assisters: Vec<String>,
+        pub assisters: Vec<String>,
     },
     Multikill {
         #[serde(rename = "KillerName")]
-        killer_name: String,
+        pub killer_name: String,
         #[serde(rename = "KillStreak")]
-        killstreak: i32,
+        pub killstreak: i32,
     },
     Ace {
         #[serde(rename = "Acer")]
-        acer: String,
+        pub acer: String,
         #[serde(rename = "AcingTeam")]
-        acing_team: String,
+        pub acing_team: String,
     },
 }
 
@@ -377,7 +378,7 @@ mod tests {
         assert_eq!(s.creep_score, 100);
         assert_eq!(s.deaths, 0);
         assert_eq!(s.kills, 1);
-        assert_eq!(s.ward_score, 0);
+        assert_eq!(s.ward_score, 0.0);
     }
 
     #[test]

@@ -79,6 +79,7 @@ pub fn get_certificate() -> Certificate {
     return Certificate::from_pem(RIOT_GAMES_CERT.as_ref()).unwrap();
 }
 
+//TODO rewrite
 pub fn load_certificate() -> Option<Certificate> {
     let cert = {
         let mut cert_file = File::open("./riotgames.pem").ok()?;

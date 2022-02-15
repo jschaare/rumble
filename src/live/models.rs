@@ -191,72 +191,72 @@ pub enum GameEventType {
     MinionsSpawning,
     ChampionKill {
         #[serde(rename = "KillerName")]
-        pub killer_name: String,
+        killer_name: String,
         #[serde(rename = "VictimName")]
-        pub victim_name: String,
+        victim_name: String,
         #[serde(rename = "Assisters")]
-        pub assisters: Vec<String>,
+        assisters: Vec<String>,
     },
     FirstBrick {
         #[serde(rename = "KillerName")]
-        pub killer_name: String,
+        killer_name: String,
     },
     TurretKilled {
         #[serde(rename = "KillerName")]
-        pub killer_name: String,
+        killer_name: String,
         #[serde(rename = "TurretKilled")]
-        pub turret_killed: String,
+        turret_killed: String,
         #[serde(rename = "Assisters")]
-        pub assisters: Vec<String>,
+        assisters: Vec<String>,
     },
     InhibKilled {
         #[serde(rename = "KillerName")]
-        pub killer_name: String,
+        killer_name: String,
         #[serde(rename = "InhibKilled")]
-        pub inhib_killed: String,
+        inhib_killed: String,
         #[serde(rename = "Assisters")]
-        pub assisters: Vec<String>,
+        assisters: Vec<String>,
     },
     DragonKill {
         #[serde(rename = "KillerName")]
-        pub killer_name: String,
+        killer_name: String,
         #[serde(rename = "DragonType")]
-        pub dragon_type: String,
+        dragon_type: String,
         #[serde(deserialize_with = "bool_from_string")]
         #[serde(rename = "Stolen")]
-        pub stolen: bool,
+        stolen: bool,
         #[serde(rename = "Assisters")]
-        pub assisters: Vec<String>,
+        assisters: Vec<String>,
     },
     HeraldKill {
         #[serde(rename = "KillerName")]
-        pub killer_name: String,
+        killer_name: String,
         #[serde(deserialize_with = "bool_from_string")]
         #[serde(rename = "Stolen")]
-        pub stolen: bool,
+        stolen: bool,
         #[serde(rename = "Assisters")]
-        pub assisters: Vec<String>,
+        assisters: Vec<String>,
     },
     BaronKill {
         #[serde(rename = "KillerName")]
-        pub killer_name: String,
+        killer_name: String,
         #[serde(deserialize_with = "bool_from_string")]
         #[serde(rename = "Stolen")]
-        pub stolen: bool,
+        stolen: bool,
         #[serde(rename = "Assisters")]
-        pub assisters: Vec<String>,
+        assisters: Vec<String>,
     },
     Multikill {
         #[serde(rename = "KillerName")]
-        pub killer_name: String,
+        killer_name: String,
         #[serde(rename = "KillStreak")]
-        pub killstreak: i32,
+        killstreak: i32,
     },
     Ace {
         #[serde(rename = "Acer")]
-        pub acer: String,
+        acer: String,
         #[serde(rename = "AcingTeam")]
-        pub acing_team: String,
+        acing_team: String,
     },
 }
 

@@ -38,10 +38,9 @@ impl<'a> PlayerApi<'a> {
     }
 
     pub async fn get_player_list(&self) -> LiveClientResult<Vec<Player>> {
-        let request = self.client.request(
-            Method::GET,
-            &format!("/liveclientdata/playerlist"),
-        );
+        let request = self
+            .client
+            .request(Method::GET, &format!("/liveclientdata/playerlist"));
         let response = self.client.execute::<Vec<Player>>(request).await;
         response
     }
@@ -56,28 +55,25 @@ impl<'a> PlayerApi<'a> {
     }
 
     pub async fn get_active_player_runes(&self) -> LiveClientResult<ActivePlayerRunes> {
-        let request = self.client.request(
-            Method::GET,
-            &format!("/liveclientdata/activeplayerrunes"),
-        );
+        let request = self
+            .client
+            .request(Method::GET, &format!("/liveclientdata/activeplayerrunes"));
         let response = self.client.execute::<ActivePlayerRunes>(request).await;
         response
     }
 
     pub async fn get_active_player(&self) -> LiveClientResult<ActivePlayer> {
-        let request = self.client.request(
-            Method::GET,
-            &format!("/liveclientdata/activeplayer"),
-        );
+        let request = self
+            .client
+            .request(Method::GET, &format!("/liveclientdata/activeplayer"));
         let response = self.client.execute::<ActivePlayer>(request).await;
         response
     }
 
     pub async fn get_active_player_name(&self) -> LiveClientResult<String> {
-        let request = self.client.request(
-            Method::GET,
-            &format!("/liveclientdata/activeplayername"),
-        );
+        let request = self
+            .client
+            .request(Method::GET, &format!("/liveclientdata/activeplayername"));
         let response = self.client.execute::<String>(request).await;
         response
     }
@@ -89,19 +85,17 @@ pub struct GameApi<'a> {
 
 impl<'a> GameApi<'a> {
     pub async fn get_game_stats(&self) -> LiveClientResult<GameStats> {
-        let request = self.client.request(
-            Method::GET,
-            &format!("/liveclientdata/gamestats"),
-        );
+        let request = self
+            .client
+            .request(Method::GET, &format!("/liveclientdata/gamestats"));
         let response = self.client.execute::<GameStats>(request).await;
         response
     }
 
     pub async fn get_game_events(&self) -> LiveClientResult<GameEventAll> {
-        let request = self.client.request(
-            Method::GET,
-            &format!("/liveclientdata/eventdata"),
-        );
+        let request = self
+            .client
+            .request(Method::GET, &format!("/liveclientdata/eventdata"));
         let response = self.client.execute::<GameEventAll>(request).await;
         response
     }
@@ -128,7 +122,11 @@ mod tests {
     #[tokio::test]
     async fn get_active_player_abilities() {
         let lcu = LiveClient::new(LiveClientConfig::new());
-        let player: ActivePlayerAbilities = lcu.player_api().get_active_player_abilities().await.unwrap();
+        let player: ActivePlayerAbilities = lcu
+            .player_api()
+            .get_active_player_abilities()
+            .await
+            .unwrap();
     }
 
     #[tokio::test]

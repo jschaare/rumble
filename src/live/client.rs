@@ -7,7 +7,6 @@ use crate::live::{
 };
 
 use crate::live::cert;
-use crate::live::models::PlayerScore;
 
 pub struct LiveClient {
     config: LiveClientConfig,

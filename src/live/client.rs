@@ -18,7 +18,7 @@ impl LiveClient {
         Self {
             config: config.into(),
             client: Client::builder()
-                .add_root_certificate(cert::load_certificate().unwrap())
+                .add_root_certificate(cert::get_certificate())
                 .build()
                 .unwrap(), //TODO riot pem
         }
